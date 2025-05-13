@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AAW STUDIO | Angelo</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background-color: #000;
+      color: #fff;
+    }
+
+    header {
+      padding: 100px;
+      background-image: url('images/logo-transparent.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      height: 300px;
+      width: 100%;
+    }
+
+    @media (max-width: 768px) { header { height: 200px; } }
+    @media (max-width: 480px) { header { height: 150px; } }
+
+    .navbar {
+      background-color: #ffb52e;
+    }
+
+    .nav-link {
+      color: #fff !important;
+      transition: font-size 0.3s, background-color 0.3s;
+    }
+
+    .nav-item:hover {
+      font-size: 20px;
+      background-color: #9B0909;
+    }
+
+    .container-section {
+      background: #1a1a1a;
+      margin: 40px auto;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 0 30px rgba(255, 165, 0, 0.2);
+      max-width: 1000px;
+    }
+
+    .intro {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .text { max-width: 500px; }
+
+    h1 { font-size: 2.5rem; margin-bottom: 10px; }
+    h1 span { color: #ffb52e; }
+
+    .role-badge {
+      display: inline-block;
+      background-color: #ffb52e;
+      color: #000;
+      padding: 6px 12px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .image-container {
+      border-radius: 10%;
+      overflow: hidden;
+      width: 350px;
+      height: 350px;
+      flex-shrink: 0;
+      box-shadow: 0 0 30px rgba(255, 165, 0, 0.2);
+    }
+
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    blockquote {
+      font-style: italic;
+      border-left: 4px solid #ffb52e;
+      padding-left: 15px;
+      margin-bottom: 20px;
+    }
+
+    footer {
+      margin-top: 60px;
+      text-align: center;
+      padding: 30px 0;
+      border-top: 1px solid #333;
+      color: #aaa;
+    }
+
+    footer a {
+      color: #ffb52e;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+
+    .filters {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .filters button {
+      background-color: #1a1a1a;
+      color: #ffb52e;
+      border: 1px solid #ffb52e;
+      padding: 8px 16px;
+      margin: 5px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .filters button:hover,
+    .filters button.active {
+      background-color: #ffb52e;
+      color: #000;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #ffb52e;
+    }
+
+    .gallery-item { display: none; }
+    .gallery-item.show { display: block; }
+
+    /* Contact */
+    .contact-container {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 50px auto;
+      max-width: 1000px;
+      background-color: #111;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+    }
+
+    .contact-image {
+      flex: 1;
+      min-width: 300px;
+      background: url('images/14.jpg') center center/cover no-repeat;
+    }
+
+    .contact-form-wrapper {
+      flex: 1;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .contact-form-wrapper h1 {
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      color: #ffb52e;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      padding: 12px;
+      border: 1px solid #333;
+      border-radius: 6px;
+      font-size: 1rem;
+      background-color: #222;
+      color: #fff;
+    }
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder {
+      color: #aaa;
+    }
+
+    .contact-form button {
+      background-color: #ffb52e;
+      color: #000;
+      border: none;
+      padding: 12px;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .contact-form button:hover {
+      background-color: #e0a800;
+    }
+
+    @media (max-width: 768px) {
+      .contact-container {
+        flex-direction: column;
+      }
+
+      .contact-image {
+        height: 300px;
+      }
+
+      .contact-form-wrapper {
+        padding: 20px;
+      }
+      
+    }
+
+    /* Login section */
+    .login-box {
+      background-color: #1a1a1a;
+      padding: 30px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 400px;
+      margin: 80px auto;
+      box-shadow: 0 0 20px rgba(255, 165, 0, 0.2);
+    }
+
+    .login-box h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #ffb52e;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 6px;
+      background-color: #333;
+      color: #fff;
+    }
+
+    .login-box input::placeholder {
+      color: #aaa;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 10px;
+      background-color: #ffb52e;
+      color: #000;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .login-box button:hover {
+      background-color: #e0a800;
+    }
+    p {
+  text-align: justify;
+}
+    p {
+  text-align: justify;
+  margin-bottom: 20px;
+}
+  </style>
+</head>
+
+<body>
+  <header></header>
+
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+      <a class="navbar-brand text-white" href="#"><b>AAW STUDIO</b></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#gallery-section">Images</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="#login">Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  
+    <div class="container-section" id="home">
+    <div class="intro">
+      <div class="text">
+        <h1>HI THERE!!<br>I'M <span>AAW STUDIO</span></h1>
+        <div class="role-badge">Software Engineer / Photographer</div>
+        <p>
+          AAW Studio is a personal brand that bridges the worlds of software engineering and photography, showcasing creativity through both code and visual storytelling. Founded with passion and purpose, AAW Studio reflects a deep commitment to innovation, expression, and continuous learning. Whether developing dynamic, scalable web applications or capturing meaningful moments through a camera lens, AAW Studio thrives on turning ideas into impactful experiences.
+
+
+        </p>
+      </div>
+      <div class="image-container">
+        <img src="images/logo.png" alt="Angelo" />
+      </div>
+    </div>
+  </div>
+
+  <div class="container-section">
+    <h2 style="color: #ffb52e;">We Passion for Photography</h2>
+    <p>At AAW Studio, photography is more than just a hobby—it's a heartfelt passion and a powerful form of storytelling. Every click of the shutter is a chance to capture moments that speak beyond words, preserving emotions, connections, and beauty in their most authentic form. From breathtaking landscapes to intimate portraits, I find endless inspiration in everyday scenes and strive to transform them into visual poetry.
+</p>
+    <p>Photography allows me to observe the world with a deeper appreciation, finding meaning in light, texture, and expression. Whether I'm exploring new places on weekend adventures, celebrating milestones with loved ones, or simply witnessing quiet, candid moments, I always carry my camera as a trusted companion. It helps me freeze time, immortalize memories, and share stories that resonate with others. Through my lens, I aim to celebrate the beauty of life—one frame at a time.</p>
+  </div>
+
+  <div class="container-section">
+  <h2 style="color: #ffb52e;">Projects I've Built</h2>
+  <div class="row mt-4">
+    <!-- Left column: project list -->
+    <div class="col-md-6">
+      <ul style="padding-left: 20px; line-height: 1.8;">
+        <li><strong>Photo Gallery:</strong> A clean layout of images with titles or captions.</li>
+        <li><strong>Personal Portfolio Website:</strong> A responsive website to showcase your skills, projects, and resume.</li>
+        <li><strong>Clock or Timer App:</strong> A digital clock, countdown timer, or stopwatch functionality using JavaScript intervals.</li>
+        <li><strong>Weather App:</strong> Displays real-time weather using a public API like OpenWeatherMap.</li>
+  <li><strong>To-Do List:</strong> Task management app with add/delete/edit functionality and local storage.</li>
+  <li><strong>Quiz App:</strong> An interactive quiz with score tracking and question randomization.</li>
+  <li><strong>Calculator:</strong> A basic or scientific calculator built with HTML, CSS, and JavaScript.</li>
+  <li><strong>Image Slider:</strong> A responsive carousel with fade/slide transitions.</li>
+  <li><strong>Markdown Previewer:</strong> Converts live markdown input to HTML using a library like Marked.js.</li>
+
+    </div>
+    
+
+    <div class="col-md-6">
+      <div style="background-color: #111; padding: 20px; border-radius: 10px; box-shadow: 0 0 15px rgba(255, 181, 46, 0.2);">
+        <h5 style="color: #ffb52e;">Why I Build</h5>
+        <p style="color: #ccc;">My projects are more than just code — they reflect curiosity, creativity, and my journey in tech. I love solving real-world problems with elegant design and functionality.</p>
+        <img src="images/images (15).jpeg" alt="Featured Project" style="width: 100%; border-radius: 10px; margin-top: 10px;" />
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+  <div class="container-section" id="gallery-section">
+    <h2 style="color:#ffb52e; text-align: center;">Photo Gallery</h2>
+    <p class="description text-center">Browse by category and click to enlarge images.</p>
+
+    <div class="filters">
+      <button class="active" onclick="filterImages(event, 'all')">All</button>
+      <button onclick="filterImages(event, 'portrait')">Portraits</button>
+      <button onclick="filterImages(event, 'travel')">Travel</button>
+      <button onclick="filterImages(event, 'nature')">Nature</button>
+    </div>
+
+    <div class="gallery">
+      <!-- Sample images -->
+     <img src="images/9.jpg" alt="Travel" class="gallery-item travel  show" onclick="openLightbox(this.src)"/>
+
+            <img src="images/2.jpg" alt="Travel 1" class="gallery-item travel show" onclick="openLightbox(this.src)" />
+      <img src="images/3.jpg" alt="Nature 1" class="gallery-item nature show" onclick="openLightbox(this.src)" />
+      <img src="images/4.jpg" alt="Portrait 2" class="gallery-item portrait show" onclick="openLightbox(this.src)" />
+      <img src="images/5.jpg" alt="Travel 2" class="gallery-item travel show" onclick="openLightbox(this.src)" />
+      <img src="images/6.jpg" alt="Nature 2" class="gallery-item nature show" onclick="openLightbox(this.src)" />
+      <img src="images/7.jpg" alt="Portrait 3" class="gallery-item portrait show" onclick="openLightbox(this.src)" />
+      <img src="images/8.jpg" alt="Travel 3" class="gallery-item travel show" onclick="openLightbox(this.src)" />
+      <img src="images/10.jpg" alt="Nature 3" class="gallery-item nature show" onclick="openLightbox(this.src)" />
+      <img src="images/11.jpg" alt="Nature 4" class="gallery-item nature show" onclick="openLightbox(this.src)" />
+      <img src="images/12.jpg" alt="Portrait 4" class="gallery-item portrait show" onclick="openLightbox(this.src)" />
+            <img src="images/13.jpg" alt="Portrait 4" class="gallery-item portrait show" onclick="openLightbox(this.src)" />
+
+    </div>
+  </div>
+
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <img id="lightbox-img" src="" alt="Enlarged Image" />
+  </div>
+
+<div id="contact" class="container-section">
+  <div class="contact-container">
+    <div class="contact-image"></div>
+    <div class="contact-form-wrapper">
+      <h1>Contact Me</h1>
+      <form class="contact-form" action="mailto:angelocia54@gmail.com" method="POST" enctype="text/plain">
+
+        <div class="mb-3">
+          
+          <input type="text" class="form-control" id="name" name="Name" placeholder="Your Name" required />
+        </div>
+        <div class="mb-3">
+
+          <input type="email" class="form-control" id="email" name="Email" placeholder="you@example.com" required />
+        </div>
+        <div class="mb-3">
+         
+          <textarea class="form-control" id="message" name="Message" rows="4" placeholder="Write your message here..." required></textarea>
+        </div>
+        <button type="submit" class="btn">Send Message</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+  <div class="container-section" id="login">
+    <div class="login-box">
+      <h2>Login</h2>
+      <form>
+        <input type="email" placeholder="Email" required />
+        <input type="password" placeholder="Password" required />
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+ 
+    <h6>Contact me: <a href=":angelocia54@gmail.com">angelocia54@gmail.com</a></h6>
+    <h6>
+      Follow me:
+      <a href="https://www.instagram.com/angelocia_?igsh=aWg1Z3llazJzcDRs">Instagram</a> |
+      <a href="https://github.com/Angelo742-dev">GitHub</a> |
+      <a href="https://www.facebook.com/share/16HksiNBBZ/">Facebook</a>
+    </h6>
+    <h6 style="margin-top: 10px;">&copy; 2025 Angelo. All rights reserved.</h6>
+ 
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function openLightbox(src) {
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    lightbox.style.display = "flex";
+    lightboxImg.src = src;
+  }
+
+  function closeLightbox() {
+    document.getElementById("lightbox").style.display = "none";
+  }
+
+  function filterImages(event, category) {
+    const buttons = document.querySelectorAll(".filters button");
+    buttons.forEach(btn => btn.classList.remove("active"));
+    event.target.classList.add("active");
+
+    const items = document.querySelectorAll(".gallery-item");
+    items.forEach(item => {
+      if (category === "all" || item.classList.contains(category)) {
+        item.classList.add("show");
+      } else {
+        item.classList.remove("show");
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
